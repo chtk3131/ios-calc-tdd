@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const Color colorMain = Colors.black;
-  static const Color colorNum = Colors.white10;
+  static const Color colorNum = Colors.white24;
   static const Color colorFunc = Colors.white54;
   static const Color colorCalc = Colors.orange;
   static const Color colorText = Colors.white;
@@ -55,31 +55,111 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget Button(String text, Color colorButton, Color colorText) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: ElevatedButton(
+        onPressed: () {},
+        child: Padding(
+          padding: text == "0"
+              ? const EdgeInsets.only(
+                  left: 20,
+                  top: 20,
+                  right: 120,
+                  bottom: 20,
+                )
+              : text.length == 1
+                  ? const EdgeInsets.all(22)
+                  : const EdgeInsets.symmetric(horizontal: 15, vertical: 22),
+          child: _mapIcon.containsKey(text)
+              ? Icon(
+                  _mapIcon[text],
+                  size: 30,
+                )
+              : Text(
+                  text,
+                  style: const TextStyle(fontSize: 30),
+                ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: colorButton,
+          onPrimary: colorText,
+          shape: text == "0" ? const StadiumBorder() : const CircleBorder(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title!),
-      ),
-      body: Center(
+      backgroundColor: colorMain,
+      body: Container(
+        margin: const EdgeInsets.only(bottom: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    txtResult,
+                    style: const TextStyle(
+                      color: colorText,
+                      fontSize: 60,
+                    ),
+                    textAlign: TextAlign.right,
+                    maxLines: 1,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Button("C", colorFunc, colorMain),
+                Button("+/-", colorFunc, colorMain),
+                Button("%", colorFunc, colorMain),
+                Button("/", colorCalc, colorText),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Button("8", colorNum, colorText),
+                Button("7", colorNum, colorText),
+                Button("9", colorNum, colorText),
+                Button("x", colorCalc, colorText),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Button("4", colorNum, colorText),
+                Button("5", colorNum, colorText),
+                Button("6", colorNum, colorText),
+                Button("-", colorCalc, colorText),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Button("1", colorNum, colorText),
+                Button("2", colorNum, colorText),
+                Button("3", colorNum, colorText),
+                Button("+", colorCalc, colorText),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Button("0", colorNum, colorText),
+                Button(".", colorNum, colorText),
+                Button("=", colorCalc, colorText),
+              ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
