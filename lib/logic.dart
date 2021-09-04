@@ -6,11 +6,11 @@ class Logic {
 
   void input(String text) {
     if (_text == "0") {
-      _text = text;
-      _currentValue = double.parse(_text);
+      _currentValue = double.parse(text);
     } else {
-      _text += text;
-      _currentValue = _currentValue * 10 + double.parse(_text);
+      _currentValue = _currentValue * 10 + double.parse(text);
     }
+
+    _text = _currentValue.toStringAsFixed(0);
   }
 }
