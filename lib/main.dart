@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tdd/logic.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,19 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
     "=": CupertinoIcons.equal,
   };
 
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  Logic _logic = Logic();
 
   Widget Button(String text, Color colorButton, Color colorText) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          _logic.input(text);
+          setState(() {
+            txtResult = _logic.text;
+          });
+        },
         child: Padding(
           padding: text == "0"
               ? const EdgeInsets.only(
